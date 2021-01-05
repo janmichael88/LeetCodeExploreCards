@@ -2,11 +2,11 @@
 #RPrint everse A String Recursively
 ##############################
 def print_reverse(s,idx):
-	if idx >= len(s):
-		return
-	print_reverse(s,idx+1)
-	#note this would print line be line
-	print(s[idx])
+    if idx >= len(s):
+    	return
+    print_reverse(s,idx+1)
+    #note this would print line be line
+    print(s[idx])
 
 print_reverse('abcde',0)
 
@@ -41,3 +41,112 @@ class Solution(object):
             rec_reverse(s,start+1,end-1)
             
         rec_reverse(s,0,len(s)-1)
+
+##############
+#All Subsets
+#############
+#this was just an aside to get more practice with recursion
+
+test = [1,2,3,4]
+
+def rec_create(array,idx,path):
+
+    if idx >= len(array):
+        print(path)
+        return
+    path.append(array[idx])
+    rec_create(array,idx+1,path)
+    #backtrack
+    path.pop()
+    rec_create(array,idx+1,path)
+
+rec_create(test,0,[])
+
+
+#now adding to a list and returning all subsets
+test = [1,2,3,4]
+def back_tracking(array):
+
+    output = []
+    def rec_create(array,idx,path):
+        if idx >= len(array):
+            output.append(path[:])
+            return
+        path.append(array[idx])
+        rec_create(array,idx+1,path)
+        #backtrack
+        path.pop()
+        rec_create(array,idx+1,path)
+
+    rec_create(array,0,[])
+    return(output)
+
+print(back_tracking(test))
+
+
+#now cascading
+test = [1,2,3,4]
+
+output = [[]]
+
+for num in test:
+    output += [[num] + foo for foo in output]
+
+print(output)
+
+
+#################
+#Swap Nodes in Paires
+########################
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        '''
+        before doing this recursively, lets try iteratively
+        '''
+        if not head or not head.next:
+            return head
+        dummy = ListNode()
+        dummy.next = head
+        curr = dummy
+        #loop invariant we need to keep checking the next and .next.nest
+        while curr.next and curr.next.next:
+            #give reference to first and second
+            first = curr.next
+            second = curr.next.next
+            #swap
+            first.next = second.next
+            second.next = first
+            curr.next = second
+            #advance two
+            curr = curr.next.next
+        
+        return dummy.next
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

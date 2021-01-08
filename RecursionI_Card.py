@@ -95,7 +95,7 @@ for num in test:
 print(output)
 
 
-#################
+#######################
 #Swap Nodes in Paires
 ########################
 # Definition for singly-linked list.
@@ -130,6 +130,61 @@ class Solution(object):
             curr = curr.next.next
         
         return dummy.next
+
+#recursively
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        '''
+        recusively
+        '''
+        def swap(head):
+            if not head or not head.next:
+                return head
+            first = head
+            second = head.next
+            
+            first.next = swap(second.next)
+            second.next = first
+            return second
+        return swap(head)
+
+
+#######################
+#Reverse Linked List
+######################
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        '''
+        while traversing just set the next pointers node to previous
+        since the a node does not have a reference to previous node, we need to store it
+        you also need a pointer to store the next node before changing the reference
+        '''
+        prev = None
+        cur = head
+        while cur:
+            #store next
+            nextt = cur.next
+            #connect current next to prvious
+            cur.next = prev
+            #move prev up
+            prev = cur
+            #move up cur
+            cur = nextt
+        return prev # we need to return prev because it holds all the previous currs
+        
 
 
 

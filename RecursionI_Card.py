@@ -184,6 +184,35 @@ class Solution(object):
             #move up cur
             cur = nextt
         return prev # we need to return prev because it holds all the previous currs
+
+
+
+#Recursively
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        '''
+        assum we have m nodes and we are at k
+        n_1 -> ... -> n_k -> n_{k+1} ... -> n_{m} -> None
+        assume we are at node k, and everything after k has been reversee
+        we then would wan n_k.next.next point to n_k
+        '''
+        def rec_reverse(node):
+            #base case
+            if not node or not node.next:
+                return node
+            
+            #reverse the rest of the list
+            rev = rec_reverse(node.next)
+            node.next.next = node
         
 
 
